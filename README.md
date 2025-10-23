@@ -231,7 +231,7 @@ cd .agent-success-pack && git pull origin main
 
 ### Directory Structure
 
-```
+```text
 your-project/
 ├── .agent-success-pack/          # This framework (as submodule)
 ├── PROGRESS.md                    # Generated from template

@@ -90,7 +90,7 @@ You'll be asked:
 
 After running `init.sh`, you'll have:
 
-```
+```text
 your-project/
 ├── .agent-success-pack/         # Framework submodule
 ├── PROGRESS.md                   # Session tracking
@@ -274,7 +274,7 @@ Mobile-specific content here
 - Update PROGRESS.md at end of session
 
 **Example Session**:
-```
+```text
 You: Read CLAUDE.md and PROGRESS.md. What's next on our checklist?
 
 Claude: Based on PROGRESS.md, we're in Phase 2: Database Setup.
