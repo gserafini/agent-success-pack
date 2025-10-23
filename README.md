@@ -10,6 +10,25 @@ Agent Success Pack provides battle-tested templates, scripts, and patterns to es
 
 ## Quick Start
 
+###  Recommended: Layer on Claude Code Init
+
+**Best Practice**: Run this AFTER Claude Code's `/init` command to layer project management on top of the baseline setup.
+
+```bash
+# 1. First, let Claude Code initialize your project
+# In Claude Code chat:
+/init
+
+# 2. Then add Agent Success Pack for structured project management
+git submodule add https://github.com/gserafini/agent-success-pack.git .agent-success-pack
+
+# 3. Run interactive setup
+cd .agent-success-pack
+./scripts/init.sh
+
+# 4. Follow prompts - select "Enhance" for existing files to preserve Claude's setup
+```
+
 ### Add to Existing Project
 
 ```bash
@@ -21,19 +40,6 @@ cd .agent-success-pack
 ./scripts/init.sh
 
 # Follow the prompts to customize for your project
-```
-
-### Create New Project
-
-```bash
-# Clone the framework
-git clone https://github.com/gserafini/agent-success-pack.git
-cd agent-success-pack
-
-# Create new project with scaffold
-./scripts/scaffold.sh ../my-new-project
-
-# Follow the prompts to set up your project
 ```
 
 ---
@@ -180,22 +186,28 @@ Battle-tested configurations included:
 - 📊 Track project health
 
 ### AI-Assisted Development
-- 🤖 Give AI clear context and patterns
-- 🎯 Keep AI focused on current phase
-- 📝 Document decisions for AI to reference
-- ✅ Ensure AI follows quality standards
+- 🤖 **Multi-Agent Coordination** - Keep Claude Code, Copilot, Cursor, and other AI agents aligned
+- 🎯 **Clear Context** - Shared documentation ensures consistent output across all agents
+- 📝 **Decision History** - All agents can reference past decisions via ADRs
+- ✅ **Quality Standards** - Enforce consistent patterns regardless of which agent is helping
+- 🔄 **Session Continuity** - Any agent can pick up where another left off using PROGRESS.md
 
 ---
 
 ## Real-World Results
 
-**From Reentry Map Project** (where this framework was extracted):
+**Extracted from production projects** - These patterns have been battle-tested:
 
-- ⏱ **50% faster setup** - Phase 0 complete in 2 hours vs 4 hours
-- 📈 **100% documentation** - All ADRs, requirements, architecture documented
-- 🎯 **Zero scope creep** - Clear implementation checklist keeps focus
-- 🤖 **Better AI output** - Claude Code produces higher quality code with clear context
-- ✅ **No missed tasks** - TodoWrite + PROGRESS.md ensure nothing forgotten
+- ⏱ **50% faster setup** - Phase 0 complete in 2 hours vs 4 hours without framework
+- 📈 **100% documentation** - All ADRs, requirements, architecture automatically tracked
+- 🎯 **Zero scope creep** - Clear implementation checklist keeps team focused
+- 🤖 **Better AI output** - Clear context improves code quality across all AI agents
+- ✅ **No missed tasks** - PROGRESS.md + checklists ensure nothing forgotten
+- 🔄 **Seamless handoffs** - Team members (human and AI) can pick up work instantly
+
+**Example Projects Using This Framework**:
+- [Reentry Map](https://github.com/gserafini/reentry-map) - Full-stack Next.js app with Supabase
+- _Your project here!_ Submit a PR to showcase your project
 
 ---
 

@@ -34,8 +34,8 @@ echo ""
 echo -e "${YELLOW}Project Information:${NC}"
 echo ""
 
-read -p "Project Name (e.g., 'Reentry Map'): " PROJECT_NAME
-PROJECT_NAME=${PROJECT_NAME:-"My Project"}
+read -p "Project Name (e.g., 'My Awesome App'): " PROJECT_NAME
+PROJECT_NAME=${PROJECT_NAME:-"Example Project"}
 
 echo ""
 echo "Project Type:"
