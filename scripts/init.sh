@@ -187,7 +187,47 @@ EOF
     echo -e "${GREEN}✓${NC} Created PROGRESS.md"
 fi
 
+# Function to safely create file (checks if exists first)
+create_file_safe() {
+    local filepath=$1
+    local filename=$(basename "$filepath")
+
+    if [ -f "$filepath" ]; then
+        echo ""
+        echo -e "${YELLOW}⚠ $filename already exists!${NC}"
+        echo "What would you like to do?"
+        echo "  1) Skip (keep existing file)"
+        echo "  2) Backup and overwrite (saves .bak file)"
+        echo "  3) Overwrite (DANGEROUS - lose existing content)"
+        read -p "Select option (1-3): " FILE_ACTION
+        FILE_ACTION=${FILE_ACTION:-1}
+
+        case $FILE_ACTION in
+            1)
+                echo -e "${BLUE}↷${NC} Skipped $filename (kept existing)"
+                return 1
+                ;;
+            2)
+                cp "$filepath" "$filepath.bak"
+                echo -e "${GREEN}✓${NC} Backed up to $filename.bak"
+                return 0
+                ;;
+            3)
+                echo -e "${RED}!${NC} Overwriting $filename"
+                return 0
+                ;;
+            *)
+                echo -e "${BLUE}↷${NC} Skipped $filename (kept existing)"
+                return 1
+                ;;
+        esac
+    fi
+
+    return 0
+}
+
 # Create basic CLAUDE.md
+if create_file_safe "$PROJECT_ROOT/CLAUDE.md"; then
 cat > "$PROJECT_ROOT/CLAUDE.md" <<EOF
 # CLAUDE.md
 
@@ -268,9 +308,11 @@ npm run format       # Format code
 
 Generated with [Agent Success Pack](https://github.com/gserafini/agent-success-pack)
 EOF
-echo -e "${GREEN}✓${NC} Created CLAUDE.md"
+    echo -e "${GREEN}✓${NC} Created CLAUDE.md"
+fi
 
 # Create basic IMPLEMENTATION_CHECKLIST.md
+if create_file_safe "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md"; then
 cat > "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md" <<EOF
 # Implementation Checklist
 
@@ -345,9 +387,11 @@ As you plan your project, add more phases here following this structure:
 
 **Generated with [Agent Success Pack](https://github.com/gserafini/agent-success-pack)**
 EOF
-echo -e "${GREEN}✓${NC} Created IMPLEMENTATION_CHECKLIST.md"
+    echo -e "${GREEN}✓${NC} Created IMPLEMENTATION_CHECKLIST.md"
+fi
 
 # Create ARCHITECTURE_DECISIONS.md
+if create_file_safe "$PROJECT_ROOT/ARCHITECTURE_DECISIONS.md"; then
 cat > "$PROJECT_ROOT/ARCHITECTURE_DECISIONS.md" <<EOF
 # Architecture Decision Records (ADRs)
 
@@ -438,17 +482,22 @@ Use [Agent Success Pack](https://github.com/gserafini/agent-success-pack) as the
 
 Generated with [Agent Success Pack](https://github.com/gserafini/agent-success-pack)
 EOF
-echo -e "${GREEN}✓${NC} Created ARCHITECTURE_DECISIONS.md"
+    echo -e "${GREEN}✓${NC} Created ARCHITECTURE_DECISIONS.md"
+fi
 
 # Copy quality tool configs if requested
 if [[ "$INSTALL_PRETTIER" =~ ^[Yy]$ ]]; then
     if [ -f "$PACK_ROOT/templates/configs/.prettierrc" ]; then
-        cp "$PACK_ROOT/templates/configs/.prettierrc" "$PROJECT_ROOT/"
-        echo -e "${GREEN}✓${NC} Copied .prettierrc"
+        if create_file_safe "$PROJECT_ROOT/.prettierrc"; then
+            cp "$PACK_ROOT/templates/configs/.prettierrc" "$PROJECT_ROOT/"
+            echo -e "${GREEN}✓${NC} Copied .prettierrc"
+        fi
     fi
     if [ -f "$PACK_ROOT/templates/configs/.prettierignore" ]; then
-        cp "$PACK_ROOT/templates/configs/.prettierignore" "$PROJECT_ROOT/"
-        echo -e "${GREEN}✓${NC} Copied .prettierignore"
+        if create_file_safe "$PROJECT_ROOT/.prettierignore"; then
+            cp "$PACK_ROOT/templates/configs/.prettierignore" "$PROJECT_ROOT/"
+            echo -e "${GREEN}✓${NC} Copied .prettierignore"
+        fi
     fi
 fi
 
