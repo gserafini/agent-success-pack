@@ -187,47 +187,247 @@ EOF
     echo -e "${GREEN}✓${NC} Created PROGRESS.md"
 fi
 
-# Function to safely create file (checks if exists first)
+# Function to get file purpose description
+get_file_purpose() {
+    local filename=$1
+    case "$filename" in
+        "PROGRESS.md")
+            echo "Tracks your project progress, session notes, metrics, and blockers"
+            ;;
+        "CLAUDE.md")
+            echo "Quick reference guide for AI assistants (Claude Code, Copilot, etc.)"
+            ;;
+        "IMPLEMENTATION_CHECKLIST.md")
+            echo "Phase-based task breakdown with acceptance criteria and review points"
+            ;;
+        "ARCHITECTURE_DECISIONS.md")
+            echo "Records 'why' decisions were made using ADR (Architecture Decision Record) format"
+            ;;
+        ".prettierrc")
+            echo "Code formatting configuration (auto-formats code on save/commit)"
+            ;;
+        ".prettierignore")
+            echo "Tells Prettier which files to skip when formatting"
+            ;;
+        *)
+            echo "Configuration file"
+            ;;
+    esac
+}
+
+# Function to summarize existing file content
+summarize_file() {
+    local filepath=$1
+    local lines=$(wc -l < "$filepath" 2>/dev/null || echo "0")
+    local size=$(du -h "$filepath" 2>/dev/null | cut -f1 || echo "0")
+    local first_line=$(head -n 1 "$filepath" 2>/dev/null || echo "")
+
+    echo "  Size: $size ($lines lines)"
+    if [ ! -z "$first_line" ]; then
+        echo "  First line: ${first_line:0:60}..."
+    fi
+
+    # Try to extract key info based on file type
+    case "$(basename "$filepath")" in
+        "PROGRESS.md")
+            local phase=$(grep -m 1 "Current Phase" "$filepath" 2>/dev/null | sed 's/.*: //' || echo "Unknown")
+            local progress=$(grep -m 1 "Overall Progress" "$filepath" 2>/dev/null | sed 's/.*: //' || echo "Unknown")
+            echo "  Current: $phase"
+            echo "  Progress: $progress"
+            ;;
+        "CLAUDE.md")
+            local project=$(grep -m 1 "^\*\*.*\*\* is" "$filepath" 2>/dev/null | sed 's/\*\*//g' | sed 's/ is.*//' || echo "Project")
+            echo "  Project: $project"
+            ;;
+        "IMPLEMENTATION_CHECKLIST.md")
+            local phases=$(grep -c "^## Phase" "$filepath" 2>/dev/null || echo "0")
+            local completed=$(grep -c "^- \[x\]" "$filepath" 2>/dev/null || echo "0")
+            local total=$(grep -c "^- \[.\]" "$filepath" 2>/dev/null || echo "0")
+            echo "  Phases defined: $phases"
+            echo "  Tasks: $completed completed / $total total"
+            ;;
+        "ARCHITECTURE_DECISIONS.md")
+            local adrs=$(grep -c "^## ADR-" "$filepath" 2>/dev/null || echo "0")
+            echo "  ADRs documented: $adrs"
+            ;;
+    esac
+}
+
+# Enhanced function to safely create file with intelligent options
 create_file_safe() {
     local filepath=$1
     local filename=$(basename "$filepath")
+    local purpose=$(get_file_purpose "$filename")
 
     if [ -f "$filepath" ]; then
         echo ""
-        echo -e "${YELLOW}⚠ $filename already exists!${NC}"
+        echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e "${YELLOW}⚠  $filename already exists${NC}"
+        echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo ""
+        echo -e "${BLUE}Purpose:${NC} $purpose"
+        echo ""
+        echo -e "${BLUE}Existing file summary:${NC}"
+        summarize_file "$filepath"
+        echo ""
         echo "What would you like to do?"
-        echo "  1) Skip (keep existing file)"
-        echo "  2) Backup and overwrite (saves .bak file)"
-        echo "  3) Overwrite (DANGEROUS - lose existing content)"
-        read -p "Select option (1-3): " FILE_ACTION
+        echo ""
+        echo "  ${GREEN}1)${NC} Keep existing (safest - no changes)"
+        echo "  ${BLUE}2)${NC} Enhance existing (add Agent Success Pack sections if missing)"
+        echo "  ${YELLOW}3)${NC} Backup and replace (saves .bak, uses new template)"
+        echo "  ${RED}4)${NC} Replace without backup (DANGEROUS - permanent loss)"
+        echo ""
+        read -p "Select option (1-4) [default: 1]: " FILE_ACTION
         FILE_ACTION=${FILE_ACTION:-1}
 
         case $FILE_ACTION in
             1)
-                echo -e "${BLUE}↷${NC} Skipped $filename (kept existing)"
+                echo -e "${GREEN}✓${NC} Keeping existing $filename"
                 return 1
                 ;;
             2)
-                cp "$filepath" "$filepath.bak"
-                echo -e "${GREEN}✓${NC} Backed up to $filename.bak"
+                echo -e "${BLUE}⚡${NC} Will enhance $filename (merge mode)"
+                # Set flag for merge mode
+                MERGE_MODE=true
                 return 0
                 ;;
             3)
-                echo -e "${RED}!${NC} Overwriting $filename"
+                cp "$filepath" "$filepath.bak"
+                echo -e "${YELLOW}✓${NC} Backed up to $filename.bak"
+                echo -e "${YELLOW}✓${NC} Replacing $filename"
+                MERGE_MODE=false
+                return 0
+                ;;
+            4)
+                echo -e "${RED}⚠${NC}  Replacing $filename (no backup)"
+                MERGE_MODE=false
                 return 0
                 ;;
             *)
-                echo -e "${BLUE}↷${NC} Skipped $filename (kept existing)"
+                echo -e "${GREEN}✓${NC} Keeping existing $filename (default)"
                 return 1
                 ;;
         esac
     fi
 
+    MERGE_MODE=false
     return 0
+}
+
+# Function to enhance existing file by adding missing sections
+enhance_file() {
+    local filepath=$1
+    local filename=$(basename "$filepath")
+
+    echo -e "${BLUE}Analyzing $filename for enhancements...${NC}"
+
+    case "$filename" in
+        "CLAUDE.md")
+            # Check if Agent Success Pack reference exists
+            if ! grep -q "Agent Success Pack" "$filepath" 2>/dev/null; then
+                echo -e "${BLUE}→${NC} Adding Agent Success Pack reference"
+                # Add reference at top after title
+                sed -i.tmp '1,/^# /a\
+\
+---\
+\
+**📦 This project uses [Agent Success Pack](https://github.com/gserafini/agent-success-pack)**\
+\
+A framework for structured, AI-optimized project management. Key docs:\
+- **[PROGRESS.md](PROGRESS.md)** - Current status & session notes\
+- **[IMPLEMENTATION_CHECKLIST.md](IMPLEMENTATION_CHECKLIST.md)** - Phase breakdown\
+- **[ARCHITECTURE_DECISIONS.md](ARCHITECTURE_DECISIONS.md)** - Technical decisions (ADRs)\
+\
+**At session start**: Read PROGRESS.md to understand current state.\
+\
+---\
+' "$filepath"
+                rm -f "$filepath.tmp"
+            fi
+            ;;
+        "PROGRESS.md")
+            # Check if session management section exists
+            if ! grep -q "Session Notes" "$filepath" 2>/dev/null; then
+                echo -e "${BLUE}→${NC} Adding session tracking section"
+                cat >> "$filepath" <<'ENHANCE_EOF'
+
+---
+
+## Session Notes
+
+### Session - $(date +%Y-%m-%d)
+
+**Accomplishments**:
+- Enhanced with Agent Success Pack framework
+- Ready for structured progress tracking
+
+**Next Session**:
+- Begin tracking progress systematically
+- Use this file at start of each session
+
+ENHANCE_EOF
+            fi
+            ;;
+        "IMPLEMENTATION_CHECKLIST.md")
+            # Check if Phase 0 exists
+            if ! grep -q "Phase 0" "$filepath" 2>/dev/null; then
+                echo -e "${BLUE}→${NC} Adding Phase 0: Foundation template"
+                cat >> "$filepath" <<'ENHANCE_EOF'
+
+---
+
+## Phase 0: Foundation & Quality Infrastructure
+
+**Goal**: Set up enterprise-grade development environment and tooling.
+
+### 0.1 Project Setup
+
+- [ ] Configure development environment
+- [ ] Set up version control
+- [ ] Install dependencies
+
+### 0.2 Quality Tools
+
+- [ ] Configure linting (ESLint)
+- [ ] Set up formatting (Prettier)
+- [ ] Configure git hooks
+
+**Deliverable**: Fully configured development environment
+
+ENHANCE_EOF
+            fi
+            ;;
+        "ARCHITECTURE_DECISIONS.md")
+            # Check if ADR format explanation exists
+            if ! grep -q "What are ADRs" "$filepath" 2>/dev/null; then
+                echo -e "${BLUE}→${NC} Adding ADR format explanation"
+                sed -i.tmp '1,/^# /a\
+\
+This file tracks significant technical decisions using ADR (Architecture Decision Record) format.\
+\
+## What are ADRs?\
+\
+Architecture Decision Records document:\
+- **What** decision was made\
+- **Why** it was made\
+- **What alternatives** were considered\
+- **What consequences** it has\
+\
+---\
+' "$filepath"
+                rm -f "$filepath.tmp"
+            fi
+            ;;
+    esac
+
+    echo -e "${GREEN}✓${NC} Enhanced $filename"
 }
 
 # Create basic CLAUDE.md
 if create_file_safe "$PROJECT_ROOT/CLAUDE.md"; then
+    if [ "$MERGE_MODE" = true ]; then
+        enhance_file "$PROJECT_ROOT/CLAUDE.md"
+    else
 cat > "$PROJECT_ROOT/CLAUDE.md" <<EOF
 # CLAUDE.md
 
@@ -308,11 +508,15 @@ npm run format       # Format code
 
 Generated with [Agent Success Pack](https://github.com/gserafini/agent-success-pack)
 EOF
-    echo -e "${GREEN}✓${NC} Created CLAUDE.md"
+        echo -e "${GREEN}✓${NC} Created CLAUDE.md"
+    fi
 fi
 
 # Create basic IMPLEMENTATION_CHECKLIST.md
 if create_file_safe "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md"; then
+    if [ "$MERGE_MODE" = true ]; then
+        enhance_file "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md"
+    else
 cat > "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md" <<EOF
 # Implementation Checklist
 
@@ -387,11 +591,15 @@ As you plan your project, add more phases here following this structure:
 
 **Generated with [Agent Success Pack](https://github.com/gserafini/agent-success-pack)**
 EOF
-    echo -e "${GREEN}✓${NC} Created IMPLEMENTATION_CHECKLIST.md"
+        echo -e "${GREEN}✓${NC} Created IMPLEMENTATION_CHECKLIST.md"
+    fi
 fi
 
 # Create ARCHITECTURE_DECISIONS.md
 if create_file_safe "$PROJECT_ROOT/ARCHITECTURE_DECISIONS.md"; then
+    if [ "$MERGE_MODE" = true ]; then
+        enhance_file "$PROJECT_ROOT/ARCHITECTURE_DECISIONS.md"
+    else
 cat > "$PROJECT_ROOT/ARCHITECTURE_DECISIONS.md" <<EOF
 # Architecture Decision Records (ADRs)
 
@@ -482,7 +690,8 @@ Use [Agent Success Pack](https://github.com/gserafini/agent-success-pack) as the
 
 Generated with [Agent Success Pack](https://github.com/gserafini/agent-success-pack)
 EOF
-    echo -e "${GREEN}✓${NC} Created ARCHITECTURE_DECISIONS.md"
+        echo -e "${GREEN}✓${NC} Created ARCHITECTURE_DECISIONS.md"
+    fi
 fi
 
 # Copy quality tool configs if requested
