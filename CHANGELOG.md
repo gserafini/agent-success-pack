@@ -55,6 +55,14 @@ The init script now intelligently analyzes existing files and offers to enhance 
 - Default remains option 1 (keep existing) for maximum safety
 - Enhanced visual output with better formatting
 
+### Changed
+
+- **Bootstrap Script ASCII Art** - Redesigned with narrower 46-character width
+  - Prevents wrapping on standard 80-column terminals
+  - Updated to stylized block font with dots/blocks (░)
+  - Green text, blue borders, yellow tagline
+  - Now displays correctly as "AGENT SUCC PACK" across three lines
+
 ### Use Cases
 
 1. **Existing Projects**: Run init.sh and select "Enhance" to add framework benefits without losing custom content
