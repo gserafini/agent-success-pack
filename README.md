@@ -18,7 +18,25 @@ Agent Success Pack provides battle-tested templates, scripts, and patterns to es
 
 ## Quick Start
 
-###  Recommended: Layer on Claude Code Init
+### ⚡ One-Liner Installation (Recommended)
+
+Run this from your project root:
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/gserafini/agent-success-pack/main/scripts/bootstrap.sh)
+```
+
+This will:
+- ✅ Add Agent Success Pack as a git submodule
+- ✅ Run the interactive setup wizard
+- ✅ Generate customized documentation
+- ✅ Optionally install quality tools (Prettier, Husky)
+
+---
+
+### 📖 Manual Installation (More Control)
+
+#### Recommended: Layer on Claude Code Init
 
 **Best Practice**: Run this AFTER Claude Code's `/init` command to layer project management on top of the baseline setup.
 
@@ -37,7 +55,7 @@ cd .agent-success-pack
 # 4. Follow prompts - select "Enhance" for existing files to preserve Claude's setup
 ```
 
-### Add to Existing Project
+#### Add to Existing Project
 
 ```bash
 # Add as git submodule
@@ -224,14 +242,11 @@ Battle-tested configurations included:
 ### Common Commands
 
 ```bash
-# Initialize in existing project
-./agent-success-pack/scripts/init.sh
+# One-liner install (recommended)
+bash <(curl -fsSL https://raw.githubusercontent.com/gserafini/agent-success-pack/main/scripts/bootstrap.sh)
 
-# Create new project
-./agent-success-pack/scripts/scaffold.sh my-project
-
-# Validate documentation completeness
-./agent-success-pack/scripts/validate.sh
+# Re-run setup wizard
+cd .agent-success-pack && ./scripts/init.sh
 
 # Update to latest version
 cd .agent-success-pack && git pull origin main
