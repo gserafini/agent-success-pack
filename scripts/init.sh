@@ -359,10 +359,10 @@ create_file_safe() {
         echo ""
         echo "What would you like to do?"
         echo ""
-        echo "  ${GREEN}1)${NC} Keep existing (safest - no changes)"
-        echo "  ${BLUE}2)${NC} Enhance existing (add Agent Success Pack sections if missing)"
-        echo "  ${YELLOW}3)${NC} Backup and replace (saves .bak, uses new template)"
-        echo "  ${RED}4)${NC} Replace without backup (DANGEROUS - permanent loss)"
+        echo -e "  ${GREEN}1)${NC} Keep existing (safest - no changes)"
+        echo -e "  ${BLUE}2)${NC} Enhance existing (add Agent Success Pack sections if missing)"
+        echo -e "  ${YELLOW}3)${NC} Backup and replace (saves .bak, uses new template)"
+        echo -e "  ${RED}4)${NC} Replace without backup (DANGEROUS - permanent loss)"
         echo ""
         read -p "Select option (1-4) [default: 1]: " FILE_ACTION
         FILE_ACTION=${FILE_ACTION:-1}
