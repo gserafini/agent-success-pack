@@ -22,7 +22,7 @@ echo -e "${BLUE}  ║   ${GREEN}██╔══██║██║   ██║█
 echo -e "${BLUE}  ║   ${GREEN}██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║${BLUE}        ║${NC}"
 echo -e "${BLUE}  ║   ${GREEN}╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝${BLUE}        ║${NC}"
 echo -e "${BLUE}  ║                                                    ║${NC}"
-echo -e "${BLUE}  ║      ${YELLOW}【  S U C C E S S   P A C K  】${BLUE}                 ║${NC}"
+echo -e "${BLUE}  ║      ${YELLOW}【  S U C C E S S   P A C K  】${BLUE}               ║${NC}"
 echo -e "${BLUE}  ║                                                    ║${NC}"
 echo -e "${BLUE}  ║  ${YELLOW}🤖  AI-Optimized Project Management  🚀${BLUE}           ║${NC}"
 echo -e "${BLUE}  ║                                                    ║${NC}"
