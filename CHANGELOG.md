@@ -54,14 +54,21 @@ The init script now intelligently analyzes existing files and offers to enhance 
 - File prompts now show comprehensive information before asking for action
 - Default remains option 1 (keep existing) for maximum safety
 - Enhanced visual output with better formatting
-
-### Changed
-
 - **Bootstrap Script ASCII Art** - Redesigned with cleaner layout
   - "AGENT" in large 6-line block letters (green)
   - "SUCCESS PACK" on single line with decorative brackets (yellow)
-  - 46-character box width fits standard terminals
-  - No more awkward wrapping issues
+  - 56-character box width for full AGENT text
+  - Perfect border alignment
+
+### Fixed
+
+- **CRITICAL: BSD sed compatibility** - Enhance mode now works on macOS
+  - Fixed `sed` range address error ("command a expects up to 1 address")
+  - Rewrote CLAUDE.md and ARCHITECTURE_DECISIONS.md enhancements for BSD sed
+  - Uses single address with label loop instead of range addresses
+- **ASCII Art Alignment** - Perfect border alignment across all lines
+  - Consistent spacing on left and right borders
+  - All content properly centered within box
 
 ### Use Cases
 
