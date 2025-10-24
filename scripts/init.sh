@@ -24,7 +24,7 @@ else
 fi
 
 echo -e "${BLUE}╔═══════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║   Agent Success Pack - Init Script   ║${NC}"
+echo -e "${BLUE}║   Agent Success Pack - Init Script    ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════╝${NC}"
 echo ""
 
