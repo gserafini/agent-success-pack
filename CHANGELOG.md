@@ -26,6 +26,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Generic Phase 0 Template** - No longer assumes Node.js/TypeScript stack
+  - Removed hardcoded references to ESLint, Prettier, Vitest, Playwright
+  - Now focuses on universal best practices: version control, documentation, quality standards
+  - Sections marked as "Optional - adapt to your stack"
+  - Provides examples for multiple languages (ESLint/pylint/shellcheck, Prettier/Black/shfmt)
+  - Works for bash scripts, Python, Node.js, or any project type
+  - Encourages users to skip sections that don't apply
+
 - **Simplified Re-run Flow** - Removed upfront "already initialized" detection
   - Natural file-by-file decision making during normal flow
   - Reuses existing 4-option file handling (keep/enhance/backup/replace)

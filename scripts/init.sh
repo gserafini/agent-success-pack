@@ -479,23 +479,26 @@ ENHANCE_EOF
 
 ---
 
-## Phase 0: Foundation & Quality Infrastructure
+## Phase 0: Foundation & Project Setup
 
-**Goal**: Set up enterprise-grade development environment and tooling.
+**Goal**: Establish project structure, version control, and quality standards.
 
-### 0.1 Project Setup
+### 0.1 Version Control & Documentation
 
-- [ ] Configure development environment
-- [ ] Set up version control
-- [ ] Install dependencies
+- [ ] Ensure git repository initialized
+- [ ] Create .gitignore for your tech stack
+- [ ] Write clear README.md with setup instructions
+- [ ] Document dependencies and how to install them
 
-### 0.2 Quality Tools
+### 0.2 Code Quality Standards (Optional - adapt to your stack)
 
-- [ ] Configure linting (ESLint)
-- [ ] Set up formatting (Prettier)
-- [ ] Configure git hooks
+**Note**: Choose tools appropriate for your project type.
 
-**Deliverable**: Fully configured development environment
+- [ ] Set up linting (ESLint, pylint, shellcheck, etc.)
+- [ ] Set up formatting (Prettier, Black, shfmt, etc.)
+- [ ] Define coding standards in documentation
+
+**Deliverable**: Clean project structure with version control and documented standards
 
 ENHANCE_EOF
             fi
@@ -649,34 +652,39 @@ Detailed task breakdown for building $PROJECT_NAME.
 
 ---
 
-## Phase 0: Foundation & Quality Infrastructure
+## Phase 0: Foundation & Project Setup
 
-**Goal**: Set up enterprise-grade development environment and tooling.
+**Goal**: Establish project structure, version control, and quality standards.
 
-**Estimated Time**: 2-4 hours
+**Estimated Time**: 1-3 hours
 
-### 0.1 Project Setup
+### 0.1 Version Control & Documentation
 
 - [x] Initialize Agent Success Pack
-- [ ] Set up version control
-- [ ] Configure development environment
-- [ ] Install dependencies
+- [ ] Ensure git repository initialized
+- [ ] Create .gitignore for your tech stack
+- [ ] Write clear README.md with setup instructions
+- [ ] Document dependencies and how to install them
 
-### 0.2 Quality Tools
+### 0.2 Code Quality Standards (Optional - adapt to your stack)
 
-- [ ] Configure TypeScript strict mode
-- [ ] Set up ESLint
-- [ ] Set up Prettier
-- [ ] Configure git hooks
+**Note**: Choose tools appropriate for your project type. Skip if not applicable.
 
-### 0.3 Testing Infrastructure
+- [ ] Set up linting (ESLint, pylint, shellcheck, etc.)
+- [ ] Set up formatting (Prettier, Black, shfmt, etc.)
+- [ ] Configure pre-commit hooks (if desired)
+- [ ] Define coding standards in documentation
 
-- [ ] Install Vitest for unit tests
-- [ ] Install Playwright for E2E tests
-- [ ] Write example tests
-- [ ] Set up coverage reporting
+### 0.3 Testing Strategy (Optional - if applicable)
 
-**Deliverable**: Fully configured development environment with quality tools
+**Note**: Skip if your project doesn't need automated tests (e.g., simple scripts).
+
+- [ ] Choose testing framework for your language
+- [ ] Write at least one example test
+- [ ] Document how to run tests
+- [ ] Consider adding tests to CI if applicable
+
+**Deliverable**: Clean project structure with version control and documented standards
 
 ---
 
