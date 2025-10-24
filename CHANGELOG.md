@@ -32,6 +32,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Cleaner UX - make decisions in context as you encounter each file
   - No confusing "modes" or backup directories
 
+### Fixed
+
+- **Project Name Detection Validation** - More robust extraction and fallback
+  - Trims whitespace from all extracted names
+  - Validates suggestions must be > 2 characters
+  - Fixed package.json parsing for BSD sed (macOS compatibility)
+  - Always falls back to directory name if detection fails
+  - Prevents blank or invalid suggestions like "or"
+
 ---
 
 ## [1.1.0] - 2025-10-23
