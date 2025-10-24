@@ -9,7 +9,7 @@ Best practices for working efficiently with Claude Code across multiple sessions
 **DON'T**: Ask Claude to reread entire documentation files every session
 **DO**: Reference specific sections or create summary documents
 
-```
+```text
 ❌ "Read TECHNICAL_ARCHITECTURE.md and PRODUCT_REQUIREMENTS.md"
 ✅ "Refer to the database schema in TECHNICAL_ARCHITECTURE.md lines 80-450"
 ✅ "Check the PRD for user authentication requirements (section 2.4)"
@@ -20,7 +20,7 @@ Best practices for working efficiently with Claude Code across multiple sessions
 **DON'T**: Do extensive research in the main conversation thread
 **DO**: Use the Task agent (general-purpose) for research and web fetching
 
-```
+```text
 ❌ Main thread: Multiple WebFetch calls + reading large docs
 ✅ Task agent: "Research HeroUI setup and return installation steps"
 ```
@@ -32,7 +32,7 @@ Best practices for working efficiently with Claude Code across multiple sessions
 **DON'T**: Manually grep and glob through the codebase repeatedly
 **DO**: Use Task agent with subagent_type=Explore for codebase questions
 
-```
+```text
 ❌ Multiple Grep + Glob + Read operations
 ✅ Task(Explore): "Find all API routes and their authentication patterns"
 ```
@@ -159,7 +159,7 @@ Maintain `PROGRESS.md` with:
 
 Build features in small, testable chunks:
 
-```
+```text
 ❌ Build entire auth system in one session
 ✅ Session 1: Phone input component + validation
 ✅ Session 2: OTP component + Supabase integration

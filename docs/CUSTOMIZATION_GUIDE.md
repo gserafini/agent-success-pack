@@ -29,9 +29,9 @@ All templates support variable replacement during initialization:
 
 **After init**:
 ```markdown
-# Reentry Map - Setup Guide
+# My Awesome App - Setup Guide
 
-**Author**: Gabriel Serafini
+**Author**: Jane Developer
 **Stack**: Next.js 16, Supabase, TypeScript
 ```
 

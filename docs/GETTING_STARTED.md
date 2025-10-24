@@ -58,7 +58,7 @@ The `init.sh` script will ask you questions about your project and generate cust
 
 You'll be asked:
 
-1. **Project Name** (e.g., "Reentry Map")
+1. **Project Name** (e.g., "My Awesome App")
    - Used in all document headers
    - Sets the tone for documentation
 
@@ -231,7 +231,7 @@ All templates support variable replacement:
 
 **After (generated)**:
 ```markdown
-# Reentry Map - Progress
+# My Awesome App - Progress
 
 **Tech Stack**: Next.js 16, Supabase, TypeScript
 **Type**: Full-stack web application
