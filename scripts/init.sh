@@ -27,6 +27,36 @@ echo -e "${BLUE}╔════════════════════�
 echo -e "${BLUE}║   Agent Success Pack - Init Script   ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════╝${NC}"
 echo ""
+
+# Check if key files already exist and offer to exit
+KEY_FILES=("$PROJECT_ROOT/PROGRESS.md" "$PROJECT_ROOT/CLAUDE.md" "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md")
+EXISTING_FILES=()
+for file in "${KEY_FILES[@]}"; do
+    if [[ -f "$file" ]]; then
+        EXISTING_FILES+=("$(basename "$file")")
+    fi
+done
+
+if [[ ${#EXISTING_FILES[@]} -gt 0 ]]; then
+    echo -e "${YELLOW}⚠  Found existing Agent Success Pack files:${NC}"
+    for filename in "${EXISTING_FILES[@]}"; do
+        echo -e "  ${GREEN}✓${NC} $filename"
+    done
+    echo ""
+    echo -e "${BLUE}Running this script will let you update or replace these files.${NC}"
+    echo ""
+    read -p "Do you want to continue? (y/N): " CONTINUE_CHOICE
+    CONTINUE_CHOICE=${CONTINUE_CHOICE:-n}
+
+    if [[ ! "$CONTINUE_CHOICE" =~ ^[Yy]$ ]]; then
+        echo ""
+        echo -e "${GREEN}✓ Exiting without changes. Your files are safe!${NC}"
+        echo ""
+        exit 0
+    fi
+    echo ""
+fi
+
 echo -e "${GREEN}This script will customize templates for your project.${NC}"
 echo ""
 

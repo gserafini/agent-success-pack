@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Early Exit Option** - Safe bailout before making any changes
+  - Detects existing Agent Success Pack files at startup
+  - Shows which files already exist
+  - Prompts "Do you want to continue? (y/N)" - defaults to No
+  - Exit cleanly without changes if user chooses No
+
 ### Changed
 
 - **Simplified Re-run Flow** - Removed upfront "already initialized" detection
