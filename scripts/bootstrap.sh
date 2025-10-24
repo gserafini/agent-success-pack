@@ -50,8 +50,26 @@ if [ -d ".agent-success-pack" ]; then
         rm -rf .git/modules/.agent-success-pack 2>/dev/null || true
         git config --remove-section submodule..agent-success-pack 2>/dev/null || true
     else
-        echo -e "${BLUE}→${NC} Skipping submodule setup, running init..."
+        echo -e "${BLUE}→${NC} Using existing installation..."
         cd .agent-success-pack
+
+        # Check if it's a git repo and update it
+        if [[ -d .git ]] || [[ -f .git ]]; then
+            echo -e "${BLUE}→${NC} Checking for updates..."
+            git fetch origin main 2>/dev/null
+            LOCAL=$(git rev-parse @ 2>/dev/null)
+            REMOTE=$(git rev-parse @{u} 2>/dev/null)
+
+            if [[ "$LOCAL" != "$REMOTE" ]]; then
+                echo -e "${YELLOW}→${NC} Updates available!"
+                git pull origin main
+                echo -e "${GREEN}✓${NC} Updated to latest version"
+            else
+                echo -e "${GREEN}✓${NC} Already up to date"
+            fi
+        fi
+
+        echo ""
         ./scripts/init.sh
         exit 0
     fi

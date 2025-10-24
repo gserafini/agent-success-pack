@@ -32,6 +32,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Cleaner UX - make decisions in context as you encounter each file
   - No confusing "modes" or backup directories
 
+- **Bootstrap Auto-Update** - Automatically updates existing installations
+  - Checks for updates when .agent-success-pack already exists
+  - Compares local and remote commits
+  - Auto-pulls latest version before running init
+  - Shows "Already up to date" or "Updated to latest version"
+  - Ensures users always get the latest features and fixes
+
 ### Fixed
 
 - **Project Name Detection Validation** - More robust extraction and fallback
