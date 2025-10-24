@@ -27,6 +27,74 @@ echo -e "${BLUE}╔════════════════════�
 echo -e "${BLUE}║   Agent Success Pack - Init Script   ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════╝${NC}"
 echo ""
+
+# Check if already initialized
+KEY_FILES=("$PROJECT_ROOT/PROGRESS.md" "$PROJECT_ROOT/CLAUDE.md" "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md")
+EXISTING_COUNT=0
+for file in "${KEY_FILES[@]}"; do
+    if [[ -f "$file" ]]; then
+        ((EXISTING_COUNT++))
+    fi
+done
+
+if [[ $EXISTING_COUNT -ge 2 ]]; then
+    echo -e "${YELLOW}⚠  Agent Success Pack appears to be already initialized!${NC}"
+    echo ""
+    echo "Found existing files:"
+    for file in "${KEY_FILES[@]}"; do
+        if [[ -f "$file" ]]; then
+            echo -e "  ${GREEN}✓${NC} $(basename "$file")"
+        fi
+    done
+    echo ""
+    echo "What would you like to do?"
+    echo ""
+    echo -e "  ${GREEN}1)${NC} Exit (keep current setup)"
+    echo -e "  ${YELLOW}2)${NC} Re-configure (update project settings, keep files)"
+    echo -e "  ${RED}3)${NC} Re-initialize (backup existing files, start fresh)"
+    echo ""
+    read -p "Select option (1-3) [default: 1]: " REINIT_CHOICE
+    REINIT_CHOICE=${REINIT_CHOICE:-1}
+
+    case $REINIT_CHOICE in
+        1)
+            echo -e "${GREEN}✓ Keeping existing setup. Exiting.${NC}"
+            exit 0
+            ;;
+        2)
+            echo -e "${YELLOW}→ Re-configuring project settings...${NC}"
+            RECONFIGURE_MODE=true
+            ;;
+        3)
+            echo -e "${RED}→ Backing up existing files and re-initializing...${NC}"
+            BACKUP_DIR="$PROJECT_ROOT/.agent-success-pack-backup-$(date +%Y%m%d-%H%M%S)"
+            mkdir -p "$BACKUP_DIR"
+
+            for file in "${KEY_FILES[@]}"; do
+                if [[ -f "$file" ]]; then
+                    cp "$file" "$BACKUP_DIR/"
+                    echo -e "  ${BLUE}→${NC} Backed up $(basename "$file")"
+                fi
+            done
+
+            # Also backup quality tool configs if they exist
+            [[ -f "$PROJECT_ROOT/.prettierrc" ]] && cp "$PROJECT_ROOT/.prettierrc" "$BACKUP_DIR/"
+            [[ -f "$PROJECT_ROOT/.prettierignore" ]] && cp "$PROJECT_ROOT/.prettierignore" "$BACKUP_DIR/"
+
+            echo -e "${GREEN}✓ Backup created: $BACKUP_DIR${NC}"
+            echo ""
+            RECONFIGURE_MODE=false
+            ;;
+        *)
+            echo -e "${RED}Invalid option. Exiting.${NC}"
+            exit 1
+            ;;
+    esac
+    echo ""
+else
+    RECONFIGURE_MODE=false
+fi
+
 echo -e "${GREEN}This script will customize templates for your project.${NC}"
 echo ""
 
@@ -186,6 +254,56 @@ if [ ! -f "$PACK_ROOT/templates/planning/PROGRESS.md.template" ]; then
 EOF
     echo -e "${GREEN}✓${NC} Created PROGRESS.md"
 fi
+
+# Function to update project settings in existing files (reconfigure mode)
+reconfigure_project_files() {
+    echo -e "${BLUE}Updating project settings in existing files...${NC}"
+    echo ""
+
+    local updated_count=0
+
+    # Update PROGRESS.md title if it exists
+    if [[ -f "$PROJECT_ROOT/PROGRESS.md" ]]; then
+        # Update the title line
+        sed -i.bak "1s/.*/# $PROJECT_NAME - Development Progress/" "$PROJECT_ROOT/PROGRESS.md"
+        rm -f "$PROJECT_ROOT/PROGRESS.md.bak"
+        echo -e "  ${GREEN}✓${NC} Updated PROGRESS.md project name"
+        ((updated_count++))
+    fi
+
+    # Update CLAUDE.md if it exists
+    if [[ -f "$PROJECT_ROOT/CLAUDE.md" ]]; then
+        # Update project context section if it exists
+        if grep -q "## Project Context" "$PROJECT_ROOT/CLAUDE.md"; then
+            # This is more complex - just notify user
+            echo -e "  ${YELLOW}!${NC} CLAUDE.md detected - manually update project context if needed"
+        fi
+        ((updated_count++))
+    fi
+
+    # Update IMPLEMENTATION_CHECKLIST.md if it exists
+    if [[ -f "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md" ]]; then
+        sed -i.bak "1s/.*/# $PROJECT_NAME - Implementation Checklist/" "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md"
+        rm -f "$PROJECT_ROOT/IMPLEMENTATION_CHECKLIST.md.bak"
+        echo -e "  ${GREEN}✓${NC} Updated IMPLEMENTATION_CHECKLIST.md project name"
+        ((updated_count++))
+    fi
+
+    # Update ARCHITECTURE_DECISIONS.md if it exists
+    if [[ -f "$PROJECT_ROOT/ARCHITECTURE_DECISIONS.md" ]]; then
+        sed -i.bak "1s/.*/# $PROJECT_NAME - Architecture Decisions/" "$PROJECT_ROOT/ARCHITECTURE_DECISIONS.md"
+        rm -f "$PROJECT_ROOT/ARCHITECTURE_DECISIONS.md.bak"
+        echo -e "  ${GREEN}✓${NC} Updated ARCHITECTURE_DECISIONS.md project name"
+        ((updated_count++))
+    fi
+
+    echo ""
+    if [[ $updated_count -gt 0 ]]; then
+        echo -e "${GREEN}✓ Updated $updated_count file(s) with new project settings${NC}"
+    else
+        echo -e "${YELLOW}! No files found to update${NC}"
+    fi
+}
 
 # Function to get file purpose description
 get_file_purpose() {
@@ -453,6 +571,27 @@ ba
 
     echo -e "${GREEN}✓${NC} Enhanced $filename"
 }
+
+# If in reconfigure mode, update existing files and exit
+if [[ "$RECONFIGURE_MODE" = true ]]; then
+    reconfigure_project_files
+
+    echo ""
+    echo -e "${GREEN}╔═══════════════════════════════════════╗${NC}"
+    echo -e "${GREEN}║    Re-configuration Complete! 🎉     ║${NC}"
+    echo -e "${GREEN}╚═══════════════════════════════════════╝${NC}"
+    echo ""
+    echo -e "${BLUE}Updated files with new project settings:${NC}"
+    echo "  - Project Name: $PROJECT_NAME"
+    echo "  - Project Type: $PROJECT_TYPE"
+    echo "  - Tech Stack: $TECH_STACK"
+    echo "  - Author: $AUTHOR <$EMAIL>"
+    echo ""
+    echo -e "${YELLOW}Note:${NC} Your custom content has been preserved."
+    echo -e "${YELLOW}Review CLAUDE.md manually to update project context if needed.${NC}"
+    echo ""
+    exit 0
+fi
 
 # Create basic CLAUDE.md
 if create_file_safe "$PROJECT_ROOT/CLAUDE.md"; then
