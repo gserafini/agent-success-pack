@@ -66,19 +66,28 @@ suggest_project_name() {
 
     # Try CLAUDE.md first (if it exists)
     if [[ -f "$PROJECT_ROOT/CLAUDE.md" ]]; then
-        # Look for "**ProjectName** is" pattern
-        suggested=$(grep -m 1 '^\*\*.*\*\* is' "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null | sed 's/\*\*//g' | sed 's/ is.*//' || echo "")
+        # Look for "**ProjectName** is a" pattern (most common)
+        suggested=$(grep -m 1 '^\*\*.*\*\* is a' "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null | sed 's/^\*\*//' | sed 's/\*\* is a.*//' || echo "")
 
-        # Also try "# Project: Name" pattern
+        # Try "**ProjectName** is" pattern (without "a")
         if [[ -z "$suggested" ]]; then
-            suggested=$(grep -m 1 '^# ' "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null | sed 's/^# //' | sed 's/\.md$//' || echo "")
+            suggested=$(grep -m 1 '^\*\*.*\*\* is' "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null | sed 's/^\*\*//' | sed 's/\*\* is.*//' || echo "")
+        fi
+
+        # Try looking for "Project: Name" or "Repository: Name" pattern
+        if [[ -z "$suggested" ]]; then
+            suggested=$(grep -E '^\*\*Project\*\*:|^\- \*\*Project\*\*:|^\*\*Repository\*\*:' "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null | head -n 1 | sed 's/.*: //' | sed 's/github.*//' | sed 's|.*/||' || echo "")
         fi
     fi
 
     # Try README.md
     if [[ -z "$suggested" ]] && [[ -f "$PROJECT_ROOT/README.md" ]]; then
-        # Get first H1 heading
-        suggested=$(grep -m 1 '^# ' "$PROJECT_ROOT/README.md" 2>/dev/null | sed 's/^# //' || echo "")
+        # Get first H1 heading that's not a generic name
+        local readme_title=$(grep -m 1 '^# ' "$PROJECT_ROOT/README.md" 2>/dev/null | sed 's/^# //' || echo "")
+        # Filter out generic README titles
+        if [[ ! "$readme_title" =~ ^(README|Read Me|Documentation)$ ]]; then
+            suggested="$readme_title"
+        fi
     fi
 
     # Try package.json
