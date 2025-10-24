@@ -9,22 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- **Re-initialization Detection** - Script now detects if already initialized
-  - Checks for existing PROGRESS.md, CLAUDE.md, and IMPLEMENTATION_CHECKLIST.md
-  - Offers 3 options when existing setup detected:
-    1. Exit (keep current setup) - default, safest option
-    2. Re-configure - update project settings, preserve all content
-    3. Re-initialize - backup existing files, start fresh
-  - Auto-creates timestamped backups (`.agent-success-pack-backup-YYYYMMDD-HHMMSS`)
-  - Re-configure mode updates project name in all documentation files
-  - Prevents accidental overwrites of existing work
-
 ### Changed
 
-- Init script now safer for running multiple times
-- Better user experience when adding framework to existing projects
+- **Simplified Re-run Flow** - Removed upfront "already initialized" detection
+  - Natural file-by-file decision making during normal flow
+  - Reuses existing 4-option file handling (keep/enhance/backup/replace)
+  - Cleaner UX - make decisions in context as you encounter each file
+  - No confusing "modes" or backup directories
 
 ---
 
