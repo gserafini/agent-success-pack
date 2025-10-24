@@ -60,12 +60,53 @@ fi
 echo -e "${GREEN}This script will customize templates for your project.${NC}"
 echo ""
 
+# Function to suggest project name from existing content
+suggest_project_name() {
+    local suggested=""
+
+    # Try CLAUDE.md first (if it exists)
+    if [[ -f "$PROJECT_ROOT/CLAUDE.md" ]]; then
+        # Look for "**ProjectName** is" pattern
+        suggested=$(grep -m 1 '^\*\*.*\*\* is' "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null | sed 's/\*\*//g' | sed 's/ is.*//' || echo "")
+
+        # Also try "# Project: Name" pattern
+        if [[ -z "$suggested" ]]; then
+            suggested=$(grep -m 1 '^# ' "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null | sed 's/^# //' | sed 's/\.md$//' || echo "")
+        fi
+    fi
+
+    # Try README.md
+    if [[ -z "$suggested" ]] && [[ -f "$PROJECT_ROOT/README.md" ]]; then
+        # Get first H1 heading
+        suggested=$(grep -m 1 '^# ' "$PROJECT_ROOT/README.md" 2>/dev/null | sed 's/^# //' || echo "")
+    fi
+
+    # Try package.json
+    if [[ -z "$suggested" ]] && [[ -f "$PROJECT_ROOT/package.json" ]]; then
+        suggested=$(grep -m 1 '"name"' "$PROJECT_ROOT/package.json" 2>/dev/null | sed 's/.*"name":\s*"//' | sed 's/".*//' | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g' || echo "")
+    fi
+
+    # Fallback to directory name
+    if [[ -z "$suggested" ]]; then
+        suggested=$(basename "$PROJECT_ROOT" | sed 's/-/ /g' | sed 's/_/ /g' | sed 's/\b\(.\)/\u\1/g')
+    fi
+
+    echo "$suggested"
+}
+
 # Collect project information
 echo -e "${YELLOW}Project Information:${NC}"
 echo ""
 
-read -p "Project Name (e.g., 'My Awesome App'): " PROJECT_NAME
-PROJECT_NAME=${PROJECT_NAME:-"Example Project"}
+# Get suggested project name
+SUGGESTED_NAME=$(suggest_project_name)
+if [[ ! -z "$SUGGESTED_NAME" ]]; then
+    read -p "Project Name [suggested: $SUGGESTED_NAME]: " PROJECT_NAME
+    PROJECT_NAME=${PROJECT_NAME:-"$SUGGESTED_NAME"}
+else
+    read -p "Project Name (e.g., 'My Awesome App'): " PROJECT_NAME
+    PROJECT_NAME=${PROJECT_NAME:-"Example Project"}
+fi
 
 echo ""
 echo "Project Type:"

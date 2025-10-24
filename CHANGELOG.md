@@ -17,6 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Prompts "Do you want to continue? (y/N)" - defaults to No
   - Exit cleanly without changes if user chooses No
 
+- **Smart Project Name Suggestion** - Auto-detects project name from existing files
+  - Tries sources in order: CLAUDE.md → README.md → package.json → directory name
+  - Displays as editable suggestion: `Project Name [suggested: Reentry Map]:`
+  - Press Enter to accept, or type to override
+  - Converts kebab-case and snake_case to Title Case
+  - Makes re-initialization much smoother
+
 ### Changed
 
 - **Simplified Re-run Flow** - Removed upfront "already initialized" detection
