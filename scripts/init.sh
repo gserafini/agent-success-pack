@@ -327,21 +327,37 @@ enhance_file() {
             if ! grep -q "Agent Success Pack" "$filepath" 2>/dev/null; then
                 echo -e "${BLUE}→${NC} Adding Agent Success Pack reference"
                 # Add reference at top after title
-                sed -i.tmp '1,/^# /a\
-\
----\
-\
-**📦 This project uses [Agent Success Pack](https://github.com/gserafini/agent-success-pack)**\
-\
-A framework for structured, AI-optimized project management. Key docs:\
-- **[PROGRESS.md](PROGRESS.md)** - Current status & session notes\
-- **[IMPLEMENTATION_CHECKLIST.md](IMPLEMENTATION_CHECKLIST.md)** - Phase breakdown\
-- **[ARCHITECTURE_DECISIONS.md](ARCHITECTURE_DECISIONS.md)** - Technical decisions (ADRs)\
-\
-**At session start**: Read PROGRESS.md to understand current state.\
-\
----\
-' "$filepath"
+                sed -i.tmp '/^# /{
+a\
+
+a\
+---
+a\
+
+a\
+**📦 This project uses [Agent Success Pack](https://github.com/gserafini/agent-success-pack)**
+a\
+
+a\
+A framework for structured, AI-optimized project management. Key docs:
+a\
+- **[PROGRESS.md](PROGRESS.md)** - Current status & session notes
+a\
+- **[IMPLEMENTATION_CHECKLIST.md](IMPLEMENTATION_CHECKLIST.md)** - Phase breakdown
+a\
+- **[ARCHITECTURE_DECISIONS.md](ARCHITECTURE_DECISIONS.md)** - Technical decisions (ADRs)
+a\
+
+a\
+**At session start**: Read PROGRESS.md to understand current state.
+a\
+
+a\
+---
+:a
+n
+ba
+}' "$filepath"
                 rm -f "$filepath.tmp"
             fi
             ;;
@@ -401,20 +417,35 @@ ENHANCE_EOF
             # Check if ADR format explanation exists
             if ! grep -q "What are ADRs" "$filepath" 2>/dev/null; then
                 echo -e "${BLUE}→${NC} Adding ADR format explanation"
-                sed -i.tmp '1,/^# /a\
-\
-This file tracks significant technical decisions using ADR (Architecture Decision Record) format.\
-\
-## What are ADRs?\
-\
-Architecture Decision Records document:\
-- **What** decision was made\
-- **Why** it was made\
-- **What alternatives** were considered\
-- **What consequences** it has\
-\
----\
-' "$filepath"
+                sed -i.tmp '/^# /{
+a\
+
+a\
+This file tracks significant technical decisions using ADR (Architecture Decision Record) format.
+a\
+
+a\
+## What are ADRs?
+a\
+
+a\
+Architecture Decision Records document:
+a\
+- **What** decision was made
+a\
+- **Why** it was made
+a\
+- **What alternatives** were considered
+a\
+- **What consequences** it has
+a\
+
+a\
+---
+:a
+n
+ba
+}' "$filepath"
                 rm -f "$filepath.tmp"
             fi
             ;;
