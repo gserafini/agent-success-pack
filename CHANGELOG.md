@@ -57,11 +57,11 @@ The init script now intelligently analyzes existing files and offers to enhance 
 
 ### Changed
 
-- **Bootstrap Script ASCII Art** - Redesigned with narrower 46-character width
-  - Prevents wrapping on standard 80-column terminals
-  - Updated to stylized block font with dots/blocks (░)
-  - Green text, blue borders, yellow tagline
-  - Now displays correctly as "AGENT SUCC PACK" across three lines
+- **Bootstrap Script ASCII Art** - Redesigned with cleaner layout
+  - "AGENT" in large 6-line block letters (green)
+  - "SUCCESS PACK" on single line with decorative brackets (yellow)
+  - 46-character box width fits standard terminals
+  - No more awkward wrapping issues
 
 ### Use Cases
 
