@@ -1,5 +1,13 @@
 # Agent Success Pack 🤖
 
+[![Version](https://img.shields.io/github/v/release/gserafini/agent-success-pack?label=version&color=blue)](https://github.com/gserafini/agent-success-pack/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/gserafini/agent-success-pack?style=social)](https://github.com/gserafini/agent-success-pack/stargazers)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/gserafini/agent-success-pack/pulls)
+[![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/gserafini/agent-success-pack/graphs/commit-activity)
+[![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-red.svg)](https://github.com/gserafini/agent-success-pack)
+[![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-5E17EB?logo=anthropic)](https://claude.ai/code)
+
 **Enterprise-grade project scaffolding framework designed for AI-assisted development**
 
 Stop starting from scratch. Stop losing context. Stop forgetting to document decisions.
