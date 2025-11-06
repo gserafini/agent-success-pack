@@ -27,6 +27,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/gserafini/agent-success-pack
 ```
 
 This will:
+
 - ✅ Add Agent Success Pack as a git submodule
 - ✅ Run the interactive setup wizard
 - ✅ Generate customized documentation
@@ -73,6 +74,7 @@ cd .agent-success-pack
 ## What's Included
 
 ### 📋 Planning Templates
+
 - **PROGRESS.md** - Session tracking, metrics, blockers, weekly goals
 - **IMPLEMENTATION_CHECKLIST.md** - Phase-based task breakdown
 - **ARCHITECTURE_DECISIONS.md** - ADR format for decision tracking
@@ -80,11 +82,13 @@ cd .agent-success-pack
 - **PROJECT_OVERVIEW.md** - High-level project summary
 
 ### 🤖 AI Assistant Instructions
+
 - **CLAUDE.md** - Quick reference for Claude Code
 - **CLAUDE_CODE_INSTRUCTIONS.md** - Detailed development guide
 - **copilot-instructions.md** - GitHub Copilot workspace instructions
 
 ### 🛠 Development Guides
+
 - **SETUP_GUIDE.md** - Step-by-step environment setup
 - **TECHNICAL_ARCHITECTURE.md** - Tech stack, database, APIs
 - **TESTING_STRATEGY.md** - Testing approach and examples
@@ -92,6 +96,7 @@ cd .agent-success-pack
 - **API_DOCUMENTATION.md** - API endpoint specifications
 
 ### ⚙️ Quality Configurations
+
 - **Prettier** - Code formatting with Tailwind plugin
 - **ESLint** - Linting with Prettier integration
 - **Husky** - Git hooks for pre-commit checks
@@ -99,6 +104,7 @@ cd .agent-success-pack
 - **Environment Validation** - T3 Env setup templates
 
 ### 📜 Example Projects
+
 - **Web App** - Full-stack web application example
 - **API Service** - Backend API/microservice example
 - **Mobile App** - Mobile application example
@@ -110,6 +116,7 @@ cd .agent-success-pack
 ### The Problem
 
 Every new project requires the same foundational work:
+
 - ✅ Define scope and requirements
 - ✅ Track architecture decisions
 - ✅ Plan implementation phases
@@ -118,6 +125,7 @@ Every new project requires the same foundational work:
 - ✅ Track progress and blockers
 
 Teams either:
+
 1. 🔁 Start from scratch each time (inefficient, inconsistent)
 2. 📋 Copy-paste from old projects (outdated, project-specific)
 3. 🤷 Skip documentation (technical debt, unclear scope)
@@ -125,6 +133,7 @@ Teams either:
 ### The Solution
 
 **Agent Success Pack** provides:
+
 - ✅ **Consistency** - Same structure across all projects
 - ✅ **Speed** - 50%+ reduction in setup time
 - ✅ **Quality** - Enforced standards from day one
@@ -200,18 +209,21 @@ Battle-tested configurations included:
 ## Who This Is For
 
 ### Solo Developers
+
 - 🎯 Stay organized and focused
 - 📈 Track progress across sessions
 - 🧠 Never lose context
 - ✨ Produce consistent, quality code
 
 ### Teams
+
 - 🤝 Onboard new members faster
 - 📚 Everyone knows where things are
 - ✅ Enforce quality standards
 - 📊 Track project health
 
 ### AI-Assisted Development
+
 - 🤖 **Multi-Agent Coordination** - Keep Claude Code, Copilot, Cursor, and other AI agents aligned
 - 🎯 **Clear Context** - Shared documentation ensures consistent output across all agents
 - 📝 **Decision History** - All agents can reference past decisions via ADRs
@@ -232,6 +244,7 @@ Battle-tested configurations included:
 - 🔄 **Seamless handoffs** - Team members (human and AI) can pick up work instantly
 
 **Example Projects Using This Framework**:
+
 - [Reentry Map](https://github.com/gserafini/reentry-map) - Full-stack Next.js app with Supabase
 - _Your project here!_ Submit a PR to showcase your project
 
@@ -273,6 +286,7 @@ your-project/
 Contributions welcome! This framework improves as we learn from real-world usage.
 
 **Ways to contribute**:
+
 - 🐛 Report bugs or issues
 - 💡 Suggest new templates or features
 - 📝 Share your customizations

@@ -120,11 +120,13 @@ your-project/
 **Purpose**: Track sessions, progress, blockers, and goals
 
 **When to use**:
+
 - Start of each session (read to understand current state)
 - End of each session (update with accomplishments)
 - When stuck (document blockers)
 
 **Structure**:
+
 - Quick Status (visual progress table)
 - Current Session Progress
 - Completed tasks
@@ -138,12 +140,14 @@ your-project/
 **Purpose**: Detailed, testable task breakdown
 
 **When to use**:
+
 - Planning implementation phases
 - Breaking down large features
 - Ensuring nothing is forgotten
 - Reviewing with team/stakeholders
 
 **Structure**:
+
 - Organized by phases (0, 1, 2, etc.)
 - Each phase has sub-tasks
 - Checkboxes for completion tracking
@@ -155,11 +159,13 @@ your-project/
 **Purpose**: Record **why** decisions were made
 
 **When to use**:
+
 - Before making significant technical decisions
 - When choosing between multiple options
 - When future you/team needs context
 
 **ADR Format**:
+
 ```markdown
 ## ADR-XXX: Decision Title
 
@@ -169,20 +175,25 @@ your-project/
 **Tags**: relevant, tags
 
 ### Context
+
 What's the situation? What problem are we solving?
 
 ### Decision
+
 What did we decide?
 
 ### Options Considered
+
 - Option A: Pros, Cons
 - Option B: Pros, Cons
 - Option C: Pros, Cons
 
 ### Rationale
+
 Why did we choose this option?
 
 ### Consequences
+
 **Positive**: Benefits
 **Negative**: Tradeoffs
 ```
@@ -192,11 +203,13 @@ Why did we choose this option?
 **Purpose**: Quick reference for Claude Code
 
 **When to use**:
+
 - AI assistant reads this at session start
 - Reference during development
 - Update when patterns change
 
 **Contains**:
+
 - Project context
 - Tech stack
 - File structure
@@ -222,6 +235,7 @@ All templates support variable replacement:
 ### Example Customization
 
 **Before (template)**:
+
 ```markdown
 # {{PROJECT_NAME}} - Progress
 
@@ -230,6 +244,7 @@ All templates support variable replacement:
 ```
 
 **After (generated)**:
+
 ```markdown
 # My Awesome App - Progress
 
@@ -252,6 +267,7 @@ Mobile-specific content here
 ```
 
 **To customize**:
+
 1. Remove optional sections if not needed
 2. Modify examples to match your project
 3. Add custom sections as needed
@@ -263,17 +279,20 @@ Mobile-specific content here
 ### Claude Code
 
 **Setup**:
+
 1. Generated `CLAUDE.md` is your quick reference
 2. Update with project-specific patterns
 3. Claude reads this at session start
 
 **Best Practices**:
+
 - Start each session: "Read CLAUDE.md and PROGRESS.md"
 - Use TodoWrite tool for task tracking
 - Reference ADRs when making decisions
 - Update PROGRESS.md at end of session
 
 **Example Session**:
+
 ```text
 You: Read CLAUDE.md and PROGRESS.md. What's next on our checklist?
 
@@ -284,11 +303,13 @@ Claude: Based on PROGRESS.md, we're in Phase 2: Database Setup.
 ### GitHub Copilot
 
 **Setup**:
+
 1. Generated `.github/copilot-instructions.md`
 2. Copilot reads this automatically in workspace
 3. Update with your coding standards
 
 **Best Practices**:
+
 - Keep instructions focused and specific
 - Include code examples
 - Update after establishing new patterns
@@ -368,6 +389,7 @@ git push
 **Problem**: `init.sh: Permission denied`
 
 **Solution**:
+
 ```bash
 chmod +x .agent-success-pack/scripts/*.sh
 ```
@@ -377,6 +399,7 @@ chmod +x .agent-success-pack/scripts/*.sh
 **Problem**: Variables not replaced in templates
 
 **Solution**:
+
 - Ensure you answered all prompts
 - Check for typos in variable names
 - Re-run init.sh if needed
@@ -388,6 +411,7 @@ chmod +x .agent-success-pack/scripts/*.sh
 **Problem**: Submodule not cloning
 
 **Solution**:
+
 ```bash
 git submodule update --init --recursive
 ```
@@ -397,6 +421,7 @@ git submodule update --init --recursive
 **Problem**: Can't update submodule
 
 **Solution**:
+
 ```bash
 cd .agent-success-pack
 git pull origin main
@@ -412,6 +437,7 @@ git commit -m "chore: update agent-success-pack"
 **Problem**: AI not following patterns
 
 **Solution**:
+
 - Check CLAUDE.md is up to date
 - Explicitly reference in prompts
 - Add specific examples to documentation
@@ -421,6 +447,7 @@ git commit -m "chore: update agent-success-pack"
 **Problem**: AI loses context mid-session
 
 **Solution**:
+
 - Break into smaller tasks
 - Use TodoWrite to track state
 - Reference PROGRESS.md regularly

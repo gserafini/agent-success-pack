@@ -20,6 +20,7 @@ All templates support variable replacement during initialization:
 ### Example
 
 **Template**:
+
 ```markdown
 # {{PROJECT_NAME}} - Setup Guide
 
@@ -28,6 +29,7 @@ All templates support variable replacement during initialization:
 ```
 
 **After init**:
+
 ```markdown
 # My Awesome App - Setup Guide
 
@@ -44,6 +46,7 @@ After running `init.sh`, you can customize any generated file:
 ### PROGRESS.md
 
 **Add custom sections**:
+
 ```markdown
 ## Custom Metrics
 
@@ -53,6 +56,7 @@ After running `init.sh`, you can customize any generated file:
 ```
 
 **Track project-specific metrics**:
+
 ```markdown
 ## Resource Database
 
@@ -64,15 +68,18 @@ After running `init.sh`, you can customize any generated file:
 ### IMPLEMENTATION_CHECKLIST.md
 
 **Add project-specific phases**:
+
 ```markdown
 ## Phase 5: AI Agent Integration
 
 ### 5.1 Discovery Agent
+
 - [ ] Implement web scraping
 - [ ] Set up OpenAI integration
 - [ ] Create enrichment pipeline
 
 ### 5.2 Verification Agent
+
 - [ ] Phone number validation
 - [ ] Website availability checks
 - [ ] Business status verification
@@ -81,15 +88,14 @@ After running `init.sh`, you can customize any generated file:
 ### CLAUDE.md
 
 **Add project-specific patterns**:
+
 ```typescript
 // Supabase client pattern
 import { createClient } from '@/lib/supabase/server'
 
 export async function getData() {
   const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('table')
-    .select('*')
+  const { data, error } = await supabase.from('table').select('*')
 
   if (error) throw error
   return data
@@ -142,6 +148,7 @@ Different project types need different templates:
 ### Web Application
 
 Focus on:
+
 - Frontend components
 - API routes
 - Database schema
@@ -151,6 +158,7 @@ Focus on:
 ### API Service
 
 Focus on:
+
 - Endpoint documentation
 - Request/response schemas
 - Error handling
@@ -160,6 +168,7 @@ Focus on:
 ### Mobile App
 
 Focus on:
+
 - Platform-specific code
 - Offline support
 - Push notifications
@@ -169,6 +178,7 @@ Focus on:
 ### NPM Library
 
 Focus on:
+
 - Public API design
 - Documentation for users
 - Versioning strategy
@@ -190,9 +200,9 @@ export default [
     rules: {
       // Your custom rules
       'no-console': 'error',
-      '@typescript-strict/no-any': 'error'
-    }
-  }
+      '@typescript-strict/no-any': 'error',
+    },
+  },
 ]
 ```
 
@@ -233,19 +243,22 @@ Add project-specific instructions to CLAUDE.md:
 ## Critical Patterns
 
 ### Error Handling
+
 Always use this pattern:
 \`\`\`typescript
 try {
-  const result = await operation()
-  return { data: result, error: null }
+const result = await operation()
+return { data: result, error: null }
 } catch (error) {
-  console.error('Operation failed:', error)
-  return { data: null, error: error.message }
+console.error('Operation failed:', error)
+return { data: null, error: error.message }
 }
 \`\`\`
 
 ### Testing
+
 Every component must have:
+
 - Unit tests for logic
 - Integration tests for API calls
 - E2E tests for critical paths
@@ -306,14 +319,17 @@ Create your own session notes format:
 **Goal**: {{SESSION_GOAL}}
 
 ### What I Did
+
 - Item 1
 - Item 2
 
 ### What I Learned
+
 - Learning 1
 - Learning 2
 
 ### Tomorrow
+
 - [ ] Task 1
 - [ ] Task 2
 ```

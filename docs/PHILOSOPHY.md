@@ -5,6 +5,7 @@
 Software projects fail not because of bad code, but because of lost context, unclear scope, and forgotten decisions.
 
 **Common scenarios**:
+
 - "Why did we choose this approach?" (No one remembers)
 - "What's next on the roadmap?" (No clear plan)
 - "Where do we document this?" (No standard place)
@@ -20,6 +21,7 @@ AI assistants make this worse by amplifying inconsistency when context is unclea
 **Documentation is not overhead—it's the foundation for sustainable velocity.**
 
 When projects succeed, they share patterns:
+
 1. Clear, written scope and requirements
 2. Recorded decisions with rationale
 3. Explicit implementation plans
@@ -37,6 +39,7 @@ Agent Success Pack codifies these patterns into a reusable framework.
 **Problem**: Developers (human and AI) make worse decisions without context
 
 **Solution**: Make context easy to capture and find
+
 - PROGRESS.md tracks session-by-session history
 - ARCHITECTURE_DECISIONS.md explains the "why"
 - CLAUDE.md provides quick reference for AI
@@ -51,6 +54,7 @@ Agent Success Pack codifies these patterns into a reusable framework.
 **Problem**: "Where do I put this?" wastes time and creates inconsistency
 
 **Solution**: Provide clear structure with flexibility
+
 - Standard file locations everyone knows
 - Templates provide starting point
 - Customization allowed and encouraged
@@ -64,6 +68,7 @@ Agent Success Pack codifies these patterns into a reusable framework.
 **Problem**: Tools change, but good processes endure
 
 **Solution**: Framework is tool-agnostic
+
 - Use any tech stack
 - Use any AI assistant
 - Use any package manager
@@ -78,6 +83,7 @@ Agent Success Pack codifies these patterns into a reusable framework.
 **Problem**: Documentation written once, read hundreds of times
 
 **Solution**: Make documents scannable and specific
+
 - Visual progress indicators
 - Clear headings and structure
 - Examples over explanations
@@ -92,6 +98,7 @@ Agent Success Pack codifies these patterns into a reusable framework.
 **Problem**: AI assistants need context to be effective
 
 **Solution**: Structure optimized for AI consumption
+
 - Clear scope in CLAUDE.md
 - Explicit patterns and standards
 - Decision history in ADRs
@@ -106,6 +113,7 @@ Agent Success Pack codifies these patterns into a reusable framework.
 ### Why Phases?
 
 Linear task lists fail for complex projects. Phases provide:
+
 - **Logical grouping** - Related tasks together
 - **Clear milestones** - Celebrate completions
 - **Flexibility** - Adapt as you learn
@@ -116,12 +124,14 @@ Linear task lists fail for complex projects. Phases provide:
 Every project starts with Phase 0: Foundation & Quality Infrastructure
 
 **Why?**
+
 - Sets quality standards early
 - Prevents technical debt
 - Faster to fix now than later
 - Creates muscle memory
 
 **What's included?**
+
 - Testing infrastructure (Vitest, Playwright)
 - Code quality tools (ESLint, Prettier)
 - Git hooks (Husky, lint-staged)
@@ -141,6 +151,7 @@ Every project starts with Phase 0: Foundation & Quality Infrastructure
 **ADR approach**: Document decisions when fresh in mind
 
 **Benefits**:
+
 - Future you understands past you
 - New team members understand rationale
 - Can reverse decisions with confidence
@@ -149,6 +160,7 @@ Every project starts with Phase 0: Foundation & Quality Infrastructure
 ### ADR Format
 
 Simple but powerful:
+
 1. **Context** - What situation prompted this?
 2. **Decision** - What did we decide?
 3. **Options** - What alternatives considered?
@@ -156,6 +168,7 @@ Simple but powerful:
 5. **Consequences** - What are the tradeoffs?
 
 **Example**: Why this format?
+
 - **Context**: Needed decision tracking
 - **Decision**: Use ADR format
 - **Options**: Decision log, wiki pages, code comments
@@ -169,11 +182,13 @@ Simple but powerful:
 ### PROGRESS.md Philosophy
 
 **Traditional approaches fail**:
+
 - Jira tickets: Too granular, disconnected
 - Wikis: Outdated, wrong place
 - Memory: Unreliable, not shared
 
 **PROGRESS.md wins**:
+
 - ✅ Lives in repo (git-versioned)
 - ✅ Easy to update (just markdown)
 - ✅ AI can read it
@@ -182,6 +197,7 @@ Simple but powerful:
 ### What to track
 
 **Track this**:
+
 - What was accomplished
 - What's in progress
 - What's blocking progress
@@ -189,6 +205,7 @@ Simple but powerful:
 - Session notes
 
 **Don't track this**:
+
 - Every tiny commit
 - Implementation details
 - Code snippets
@@ -219,12 +236,14 @@ Simple but powerful:
 ### Best Practices
 
 **✅ Do this**:
+
 - Start sessions with "Read CLAUDE.md and PROGRESS.md"
 - Use TodoWrite to track tasks
 - Reference specific ADRs when relevant
 - Update docs immediately after decisions
 
 **❌ Don't do this**:
+
 - Expect AI to remember between sessions
 - Give AI conflicting information
 - Let documentation drift from reality
@@ -236,6 +255,7 @@ Simple but powerful:
 Agent Success Pack was extracted from [Reentry Map](https://github.com/gserafini/reentry-map), a production project.
 
 **Results**:
+
 - **50% faster Phase 0** - 2 hours vs 4 hours
 - **Zero scope creep** - Clear checklist keeps focus
 - **100% documentation** - All decisions recorded
@@ -253,6 +273,7 @@ Agent Success Pack was extracted from [Reentry Map](https://github.com/gserafini
 **Response**: It feels like overhead initially, but pays dividends quickly
 
 **Evidence**:
+
 - Lost context costs hours debugging "why did we do this?"
 - Scope creep wastes weeks building wrong features
 - Onboarding new devs takes days without documentation
@@ -266,6 +287,7 @@ Agent Success Pack was extracted from [Reentry Map](https://github.com/gserafini
 **Response**: Small projects become big projects
 
 **Evidence**:
+
 - Side projects become startups
 - Prototypes become products
 - "Just testing" becomes production
@@ -279,6 +301,7 @@ Agent Success Pack was extracted from [Reentry Map](https://github.com/gserafini
 **Response**: Agile !== No planning. Agile = Adaptive planning
 
 **Evidence**:
+
 - Agile Manifesto values "responding to change" not "no plan"
 - Sprints require planning
 - Retrospectives require history
@@ -289,9 +312,10 @@ Agent Success Pack was extracted from [Reentry Map](https://github.com/gserafini
 
 ### "AI makes documentation obsolete"
 
-**Response**: AI *requires* documentation to be effective
+**Response**: AI _requires_ documentation to be effective
 
 **Evidence**:
+
 - AI hallucinates without clear context
 - AI needs patterns to follow
 - AI can't remember decisions across sessions
@@ -305,16 +329,19 @@ Agent Success Pack was extracted from [Reentry Map](https://github.com/gserafini
 As AI coding assistants improve, this framework becomes more valuable:
 
 **Trend 1: Longer agent runs**
+
 - Agents will work for hours/days
 - Need clear instructions and bounds
 - Documentation defines both
 
 **Trend 2: Multi-agent collaboration**
+
 - Multiple AIs working together
 - Shared context critical
 - Standard structure enables coordination
 
 **Trend 3: Autonomous planning**
+
 - AI generates implementation plans
 - Needs requirements and architecture
 - Framework provides input format
@@ -342,9 +369,9 @@ This framework provides all four.
 
 ---
 
-*"Plans are worthless, but planning is everything."* - Dwight D. Eisenhower
+_"Plans are worthless, but planning is everything."_ - Dwight D. Eisenhower
 
-*"Documentation is a love letter that you write to your future self."* - Damian Conway
+_"Documentation is a love letter that you write to your future self."_ - Damian Conway
 
 ---
 
